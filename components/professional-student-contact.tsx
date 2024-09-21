@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import { MapPin, Zap, Send, Calendar, GraduationCap, FileText } from 'lucide-react'
+import { MapPin, Zap, Send, Phone, Mail } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -10,7 +10,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Phone, Mail } from 'lucide-react'; // Ensure you import Phone from the correct library
 
 export function ProfessionalStudentContact() {
   const [formData, setFormData] = useState({
