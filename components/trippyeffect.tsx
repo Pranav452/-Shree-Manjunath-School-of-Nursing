@@ -21,17 +21,17 @@ const TrippyScroll = () => {
           className="absolute inset-0 flex flex-col items-center justify-center z-20"
           style={{ scale }}
         >
-          <h1 className="text-8xl font-extrabold mb-8 glassy-text" style={{ textShadow: '2px 2px 5px rgba(0, 0, 0, 0.5)', background: 'linear-gradient(135deg, #00008B, #FF5733, #13FFAA, #1E67C6, #CE84CF, #DD335C)', backgroundClip: 'text', color: 'transparent' }}>
+          <h1 className="text-8xl font-extrabold mb-8 glassy-text" style={{ textShadow: '2px 2px 5px rgba(0, 0, 0, 0.5)', background: 'linear-gradient(135deg, #00008B, #FF5733, #13FFAA, #1E67C6, #CE84CF, #DD335C)', backgroundClip: 'text', color: '#FF5733' }}>
             READY TO JOIN?
           </h1>
 
-          <p className="text-4xl font-bold mb-8 glassy-text" style={{ textShadow: '2px 2px 5px rgba(0, 0, 0, 0.5)', background: 'linear-gradient(135deg, #00008B, #FF5733, #13FFAA, #1E67C6, #CE84CF, #DD335C)', backgroundClip: 'text', color: 'transparent' }}>
+          <p className="text-4xl font-bold mb-8 glassy-text" style={{ textShadow: '2px 2px 5px rgba(0, 0, 0, 0.5)', background: 'linear-gradient(135deg, #00008B, #FF5733, #13FFAA, #1E67C6, #CE84CF, #DD335C)', backgroundClip: 'text', color: '#FF4500' }}>
             Shape Your Future at Our College
           </p>
 
 
           <Link href="/" passHref>
-            <button className="px-8 py-4 text-2xl font-bold text-white rounded-full hover:bg-purple-700 transition-colors duration-300 glassy-button" style={{ backgroundColor: '#FF5733', color: '#FFFFFF' }}>
+            <button className="px-8 py-4 text-2xl font-bold text-white rounded-full hover:bg-purple-700 transition-colors duration-300 glassy-button" style={{ backgroundColor: '#FF4500', color: '#FFFFFF' }}>
               Apply Now
             </button>
           </Link>

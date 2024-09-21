@@ -10,11 +10,12 @@ export default function Home() {
   return (
    <>
       <AuroraHero />
-      <TrippyScroll />
+   
       <Example />
       <VerticalAccordion />
       <FacilitiesSection />
       <ProfessionalStudentContact />
+      <TrippyScroll />
       <HoverImageLinks />
     </>
   );
