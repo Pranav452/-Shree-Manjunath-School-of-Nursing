@@ -1,6 +1,6 @@
 "use client";
 import { FiBarChart, FiBell, FiDollarSign, FiPlay } from "react-icons/fi";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useState, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 import { useWindowSize } from "./usewindow";
@@ -8,9 +8,55 @@ import { IconType } from "react-icons";
 
 const VerticalAccordion = () => {
   const [open, setOpen] = useState(items[0].id);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.1 } // Start animation when 10% of the component is visible
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isVisible) return;
+
+    // Automatically cycle through cards
+    const interval = setInterval(() => {
+      setOpen((prevOpen) => {
+        const nextIndex = items.findIndex((item) => item.id === prevOpen) + 1;
+        return items[nextIndex % items.length].id;
+      });
+    }, 2000); // Switch every 2 seconds
+
+    // Stop after cycling through all cards once
+    const timeout = setTimeout(() => {
+      clearInterval(interval);
+    }, items.length * 2000);
+
+    return () => {
+      clearInterval(interval);
+      clearTimeout(timeout);
+    };
+  }, [isVisible]);
 
   return (
-    <section className="p-4 bg-black">
+    <section ref={sectionRef} className="p-4 bg-black">
       <h2 className="text-4xl font-bold text-white text-center mb-2">Admission</h2>
       <p className="text-xl text-white text-center mb-6">(Open for 2024-2025)</p>
 
@@ -25,6 +71,8 @@ const VerticalAccordion = () => {
               Icon={item.Icon}
               title={item.title}
               description={item.description}
+              animate={true} // or false, depending on your requirement
+              index={item.id} // or another appropriate value for index
             />
           );
         })}
@@ -40,6 +88,8 @@ interface PanelProps {
   Icon: IconType;
   title: string;
   description: { heading: string; content: string }[];
+  animate: boolean;
+  index: number;
 }
 
 const Panel = ({
@@ -49,15 +99,19 @@ const Panel = ({
   Icon,
   title,
   description,
+  animate,
+  index,
 }: PanelProps) => {
   const { width } = useWindowSize();
   const isOpen = open === id;
 
   return (
     <>
-      <button
+      <motion.button
         className="bg-white hover:bg-slate-50 transition-colors p-3 border-r-[1px] border-b-[1px] border-slate-200 flex flex-row-reverse lg:flex-col justify-end items-center gap-4 relative group"
         onClick={() => setOpen(id)}
+        animate={animate ? { y: [0, -5, 0] } : {}}
+        transition={{ delay: index * 0.1, duration: 0.5, ease: "easeInOut" }}
       >
         <span
           style={{
@@ -72,7 +126,7 @@ const Panel = ({
           <Icon size={24} />
         </div>
         <span className="w-4 h-4 bg-white group-hover:bg-slate-50 transition-colors border-r-[1px] border-b-[1px] lg:border-b-0 lg:border-t-[1px] border-slate-200 rotate-45 absolute bottom-0 lg:bottom-[50%] right-[50%] lg:right-0 translate-y-[50%] translate-x-[50%] z-20" />
-      </button>
+      </motion.button>
 
       <AnimatePresence>
         {isOpen && (

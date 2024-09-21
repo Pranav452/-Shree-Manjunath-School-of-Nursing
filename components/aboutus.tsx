@@ -1,6 +1,6 @@
 "use client";
 import { useAnimate } from "framer-motion";
-import React, { MouseEventHandler, ReactNode, useRef } from "react";
+import React, { MouseEventHandler, ReactNode, useRef, useEffect } from "react";
 
 export const Example = () => {
   const collegeInfo = [
@@ -37,9 +37,12 @@ export const Example = () => {
       texts={collegeInfo}
     >
       <section className="grid h-screen w-full place-content-center bg-white">
-        <p className="flex items-center gap-2 text-3xl font-bold uppercase text-black">
-          <span className="text-center">About Us</span>
-        </p>
+        <div className="text-center">
+          <p className="flex items-center justify-center gap-2 text-3xl font-bold uppercase text-black mb-2">
+            <span>About Us</span>
+          </p>
+          <p className="text-gray-500 text-sm italic">(Move your cursor around to explore)</p>
+        </div>
       </section>
     </MouseTextTrail>
   );
@@ -57,8 +60,62 @@ const MouseTextTrail = ({
   rotationRange: number;
 }) => {
   const [scope, animate] = useAnimate();
-  const lastRenderPosition = useRef({ x: 0, y: 0 });
+  const lastRenderPosition = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
   const textRenderCount = useRef(0);
+
+  // New function to render initial cards
+  const renderInitialCards = () => {
+    const initialCardCount = Math.min(3, texts.length);
+    for (let i = 0; i < initialCardCount; i++) {
+      const x = Math.random() * window.innerWidth;
+      const y = Math.random() * window.innerHeight;
+      renderCard(i, x, y);
+    }
+  };
+
+  // Modified renderNextText function
+  const renderNextText = () => {
+    const textIndex = textRenderCount.current % texts.length;
+    renderCard(textIndex, lastRenderPosition.current.x, lastRenderPosition.current.y);
+    textRenderCount.current = textRenderCount.current + 1;
+  };
+
+  // New function to handle card rendering
+  const renderCard = (index: number, x: number, y: number) => {
+    const selector = `[data-mouse-move-index="${index}"]`;
+    const el = document.querySelector(selector) as HTMLElement;
+
+    if (el) {
+      el.style.top = `${y}px`;
+      el.style.left = `${x}px`;
+      el.style.zIndex = textRenderCount.current.toString();
+
+      const rotation = Math.random() * rotationRange;
+
+      animate(
+        selector,
+        {
+          opacity: [0, 1],
+          transform: [
+            `translate(-50%, -25%) scale(0.5) ${index % 2 ? `rotate(${rotation}deg)` : `rotate(-${rotation}deg)`}`,
+            `translate(-50%, -50%) scale(1) ${index % 2 ? `rotate(-${rotation}deg)` : `rotate(${rotation}deg)`}`,
+          ],
+        },
+        { type: "spring", damping: 15, stiffness: 200 }
+      );
+
+      animate(
+        selector,
+        { opacity: [1, 0] },
+        { ease: "linear", duration: 0.5, delay: 8 }
+      );
+    }
+  };
+
+  // Use effect to render initial cards
+  useEffect(() => {
+    renderInitialCards();
+  }, []);
 
   const handleMouseMove: MouseEventHandler<HTMLDivElement> = (e) => {
     const { clientX, clientY } = e;
@@ -74,44 +131,6 @@ const MouseTextTrail = ({
       lastRenderPosition.current.y = clientY;
       renderNextText();
     }
-  };
-
-  const calculateDistance = (x1: number, y1: number, x2: number, y2: number) => {
-    const deltaX = x2 - x1;
-    const deltaY = y2 - y1;
-    return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-  };
-
-  const renderNextText = () => {
-    const textIndex = textRenderCount.current % texts.length;
-    const selector = `[data-mouse-move-index="${textIndex}"]`;
-    const el = document.querySelector(selector) as HTMLElement;
-
-    el.style.top = `${lastRenderPosition.current.y}px`;
-    el.style.left = `${lastRenderPosition.current.x}px`;
-    el.style.zIndex = textRenderCount.current.toString();
-
-    const rotation = Math.random() * rotationRange;
-
-    animate(
-      selector,
-      {
-        opacity: [0, 1],
-        transform: [
-          `translate(-50%, -25%) scale(0.5) ${textIndex % 2 ? `rotate(${rotation}deg)` : `rotate(-${rotation}deg)`}`,
-          `translate(-50%, -50%) scale(1) ${textIndex % 2 ? `rotate(-${rotation}deg)` : `rotate(${rotation}deg)`}`,
-        ],
-      },
-      { type: "spring", damping: 15, stiffness: 200 }
-    );
-
-    animate(
-      selector,
-      { opacity: [1, 0] },
-      { ease: "linear", duration: 0.5, delay: 8 }
-    );
-
-    textRenderCount.current = textRenderCount.current + 1;
   };
 
   return (
@@ -134,4 +153,10 @@ const MouseTextTrail = ({
       ))}
     </div>
   );
+};
+
+const calculateDistance = (x1: number, y1: number, x2: number, y2: number) => {
+  const deltaX = x2 - x1;
+  const deltaY = y2 - y1;
+  return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 };
