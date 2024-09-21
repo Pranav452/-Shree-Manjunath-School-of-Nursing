@@ -1,11 +1,11 @@
 "use client"
 
-import React, { useState, useEffect, useRef } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import React, { useState, useEffect } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
+import Image from 'next/image'
 
 const galleryItems = [
   {
@@ -98,11 +98,13 @@ export function CollegeGalleryCarousel() {
                   onClick={() => handleCardClick(item)}
                 >
                   <CardContent className="p-0 flex flex-col h-full">
-                    <div className="w-full h-72 overflow-hidden">
-                      <img 
+                    <div className="w-full h-72 relative overflow-hidden">
+                      <Image 
                         src={item.image} 
                         alt={item.title} 
-                        className="w-full h-full object-cover object-center"
+                        layout="fill"
+                        objectFit="cover"
+                        objectPosition="center"
                       />
                     </div>
                     <div className="p-8 flex flex-col flex-grow">
@@ -148,7 +150,14 @@ export function CollegeGalleryCarousel() {
           <DialogHeader>
             <DialogTitle className="text-2xl font-bold">{selectedItem?.title}</DialogTitle>
           </DialogHeader>
-          <img src={selectedItem?.image} alt={selectedItem?.title} className="w-full h-80 object-cover rounded-md mb-6" />
+          <div className="w-full h-80 relative rounded-md mb-6">
+            <Image 
+              src={selectedItem?.image || ''}
+              alt={selectedItem?.title || ''}
+              layout="fill"
+              objectFit="cover"
+            />
+          </div>
           <DialogDescription>
             <p className="text-lg text-gray-300 mb-4">{selectedItem?.shortDescription}</p>
             <p className="text-gray-400">{selectedItem?.fullDescription}</p>
