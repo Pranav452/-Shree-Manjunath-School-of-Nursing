@@ -11,27 +11,23 @@ export const HoverImageLinks = () => {
         <Link
           heading="About"
           subheading="Learn about our institution"
-          imgSrc=""
           href="/about"
         />
         <Link
           heading="Admissions"
           subheading="Join our nursing program"
-          imgSrc=""
           href="/admissions"
         />
         <Link
 
           heading="Facilities"
           subheading="State-of-the-art learning environment"
-          imgSrc=""
           href="/facilities"
         />
         <Link
 
           heading="Contact"
           subheading="Get in touch with us"
-          imgSrc=""
           href="/contact"
         />
       </div>
@@ -42,12 +38,11 @@ export const HoverImageLinks = () => {
 
 interface LinkProps {
   heading: string;
-  imgSrc: string;
   subheading: string;
   href: string;
 }
 
-const Link = ({ heading, imgSrc, subheading, href }: LinkProps) => {
+const Link = ({ heading, subheading, href }: LinkProps) => {
   const ref = useRef<HTMLAnchorElement | null>(null);
 
   const x = useMotionValue(0);

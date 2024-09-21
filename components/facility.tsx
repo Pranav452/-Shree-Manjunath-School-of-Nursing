@@ -14,7 +14,6 @@ import {
   IconHeartbeat,
 } from "@tabler/icons-react";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { ReactNode } from 'react';
 
 export function FacilitiesSection() {
