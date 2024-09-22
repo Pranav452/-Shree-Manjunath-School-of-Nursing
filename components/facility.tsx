@@ -38,14 +38,17 @@ export function FacilitiesSection() {
   );
 }
 
-const MotionWrapper = ({ children }: { children: ReactNode }) => (
+const GlassyIcon = ({ children }: { children: ReactNode }) => (
   <motion.div
-    className="w-full h-full flex items-center justify-center"
+    className="w-full h-full flex items-center justify-center relative overflow-hidden rounded-lg"
     initial={{ opacity: 0, scale: 0.5 }}
     animate={{ opacity: 1, scale: 1 }}
     transition={{ duration: 0.5 }}
   >
-    {children}
+    <div className="absolute inset-0 bg-gradient-to-br from-white/30 to-white/10 backdrop-filter backdrop-blur-sm z-10"></div>
+    <div className="relative z-20">
+      {children}
+    </div>
   </motion.div>
 );
 
@@ -58,9 +61,9 @@ const items = [
       </span>
     ),
     header: (
-      <MotionWrapper>
+      <GlassyIcon>
         <IconBuildingHospital className="w-16 h-16 text-white" />
-      </MotionWrapper>
+      </GlassyIcon>
     ),
     className: "md:col-span-1",
     icon: <IconBuildingHospital className="h-4 w-4 text-white" />,
@@ -73,9 +76,9 @@ const items = [
       </span>
     ),
     header: (
-      <MotionWrapper>
+      <GlassyIcon>
         <IconBed className="w-16 h-16 text-white" />
-      </MotionWrapper>
+      </GlassyIcon>
     ),
     className: "md:col-span-1",
     icon: <IconBed className="h-4 w-4 text-white" />,
@@ -88,9 +91,9 @@ const items = [
       </span>
     ),
     header: (
-      <MotionWrapper>
+      <GlassyIcon>
         <IconSchool className="w-16 h-16 text-white" />
-      </MotionWrapper>
+      </GlassyIcon>
     ),
     className: "md:col-span-1",
     icon: <IconSchool className="h-4 w-4 text-white" />,
@@ -103,9 +106,9 @@ const items = [
       </span>
     ),
     header: (
-      <MotionWrapper>
+      <GlassyIcon>
         <IconBriefcase className="w-16 h-16 text-white" />
-      </MotionWrapper>
+      </GlassyIcon>
     ),
     className: "md:col-span-1",
     icon: <IconBriefcase className="h-4 w-4 text-white" />,
@@ -118,9 +121,9 @@ const items = [
       </span>
     ),
     header: (
-      <MotionWrapper>
+      <GlassyIcon>
         <IconDeviceLaptop className="w-16 h-16 text-white" />
-      </MotionWrapper>
+      </GlassyIcon>
     ),
     className: "md:col-span-1",
     icon: <IconDeviceLaptop className="h-4 w-4 text-white" />,
@@ -133,9 +136,9 @@ const items = [
       </span>
     ),
     header: (
-      <MotionWrapper>
+      <GlassyIcon>
         <IconBooks className="w-16 h-16 text-white" />
-      </MotionWrapper>
+      </GlassyIcon>
     ),
     className: "md:col-span-1",
     icon: <IconBooks className="h-4 w-4 text-white" />,
@@ -148,9 +151,9 @@ const items = [
       </span>
     ),
     header: (
-      <MotionWrapper>
+      <GlassyIcon>
         <IconNurse className="w-16 h-16 text-white" />
-      </MotionWrapper>
+      </GlassyIcon>
     ),
     className: "md:col-span-1",
     icon: <IconNurse className="h-4 w-4 text-white" />,
@@ -163,9 +166,9 @@ const items = [
       </span>
     ),
     header: (
-      <MotionWrapper>
+      <GlassyIcon>
         <IconStethoscope className="w-16 h-16 text-white" />
-      </MotionWrapper>
+      </GlassyIcon>
     ),
     className: "md:col-span-1",
     icon: <IconStethoscope className="h-4 w-4 text-white" />,
@@ -178,9 +181,9 @@ const items = [
       </span>
     ),
     header: (
-      <MotionWrapper>
+      <GlassyIcon>
         <IconHeartbeat className="w-16 h-16 text-white" />
-      </MotionWrapper>
+      </GlassyIcon>
     ),
     className: "md:col-span-1",
     icon: <IconHeartbeat className="h-4 w-4 text-white" />,
