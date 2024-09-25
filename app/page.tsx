@@ -39,8 +39,8 @@ export default function Home() {
     return (
       <div className="flex items-center justify-center h-screen bg-black p-4">
         <div className="text-center">
-          <h1 className="text-2xl font-bold mb-4">Welcome to Shree Manjunath School of Nursing</h1>
-          <p className="text-lg">
+          <h1 className="text-2xl font-bold mb-4 animate-fade-in">Welcome to Shree Manjunath School of Nursing</h1>
+          <p className="text-lg animate-slide-up">
             For a better viewing experience, please switch to a desktop or a larger screen.
           </p>
         </div>
