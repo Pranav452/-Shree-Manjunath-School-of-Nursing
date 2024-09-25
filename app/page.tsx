@@ -41,7 +41,7 @@ export default function Home() {
         <div className="text-center">
           <h1 className="text-2xl font-bold mb-4 animate-fade-in">Welcome to Shree Manjunath School of Nursing</h1>
           <p className="text-lg animate-slide-up">
-            For a better viewing experience, please switch to a desktop or a larger screen.
+            For a better viewing xperience, please switch to a desktop or a larger screen.
           </p>
         </div>
       </div>
